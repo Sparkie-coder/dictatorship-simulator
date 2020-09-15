@@ -72,7 +72,7 @@ while publicorder>0:
             break
 
     if action==1:
-        willingrecruits=(publicorder*population)//100-random.randint(0, 0.1*(population-military))
+        willingrecruits=(publicorder*population)//100-random.randint(0, (population-military)//10)
         recruitcosts=10-round(((publicorder/20)+0.1*random.randint(0, 10)),2)
         print('Radio announcers around the country round up people to enlist in the Great Army.')
         time.sleep(.1)
@@ -96,7 +96,7 @@ while publicorder>0:
                 military=military+recruits
                 publicorder=publicorder+publicorderaction
                 break
-            elif 0<recruits<military+1:
+            elif 0<recruits<willingrecruits+1:
                 print('You recruited', recruits, 'people for the Great Army.')
                 military=military+recruits
                 money=money-(recruits*recruitcosts)
@@ -115,14 +115,14 @@ while publicorder>0:
             opposingmilitary=opposingmilitary//2
         if publicorder>10:
             if military>opposingmilitary:
-                militarydeaths=random.randint(0.02*military, 0.2*military)
+                militarydeaths=random.randint(military//50, military//5)
                 population=population+opposingpopulation
                 print('Your conquest was succesful. You gained control over', opposingpopulation, 'people, unfortunately, you lost', militarydeaths, 'people in the fight.')
                 population=population-militarydeaths
                 military=military-militarydeaths
             elif military<opposingmilitary:
-                militarydeaths=random.randint(0.5*military, 0.9*military)
-                militarycosts=random.randint(((((1000*military)//population)/1000)*money)/2, (((1000*military)//population)/1000)*money*2)
+                militarydeaths=random.randint(military//2, (9*military)//10)
+                militarycosts=random.randint(((military*money)/(2*population))//1, ((2*military*money)/(population))//1)
                 print('Your Great Army was overpowered by the opposition. Many people died, however, ', military-militarydeaths, ' people managed to retreat in time. You also had to pay a fee of $', militarycosts, ' to cover the costs for the opposition.')
                 population=population-militarydeaths
                 military=military-militarydeaths
@@ -227,7 +227,7 @@ while publicorder>0:
     if military>population:
         military=population
     publicorder=round(publicorder, 2)
-    money=rount(money, 2)
+    money=round(money, 2)
         
     taxes=round(population*(publicorder/500), 2)
     militarytaxes=round(military*0.05, 2)
@@ -282,7 +282,7 @@ while publicorder>0:
     if military>population:
         military=population
     publicorder=round(publicorder, 2)
-    money=rount(money, 2)
+    money=round(money, 2)
 
 endtext=['The streets run red with blood.', 'Your empire descends into chaos.', 'There is no one left alive to rule.', 'The empire erupts into civil war.']
 print(random.choice(endtext))
